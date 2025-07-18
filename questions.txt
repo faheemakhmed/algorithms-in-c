@@ -1,0 +1,41 @@
+Write a C program to implement
+1. Write a program to create a 1-D Array and display the elements of the array.
+2. Write a Program to insert an element at the beginning/end/ anywhere in a 1-D array.
+3. Write a Program Delete an element from beginning/end/ anywhere in a 1-D array.
+4. Write a program to create a 2-D Array and display the elements of the array.
+5. Write a program to display the non-zero elements of the sparse array.
+6. Write a program using functions for implementation of circular Queue.
+7. Write a program that uses functions and without function to perform the following operations on singly
+linked List (i) Creation (ii) Displays the element.
+8. Write a program that uses functions to perform the following operations on singly linked List for Insertion
+of elements at the beginning/end/ anywhere.
+9. Write a program that uses functions to perform the following operations on singly linked List for deletion
+of elements from the beginning/end/ anywhere.
+10. Create a doubly linked list and display the elements.
+11. Write a Program to Insert an element at the beginning/end/ anywhere in a doubly linked list.
+12. Write a Program Delete an element from beginning/end/ anywhere in a doubly linked list.
+13. Create a circular linked list and display the elements.
+14. Write a Program to insert an element at the beginning/end/ anywhere in a circular linked list.
+15. Write a Program Delete an element from beginning/end/ anywhere in a circular linked list.
+16. Write a program to invert a singly linked list.
+17. Write a program that implements stack (its operations) using (i)Arrays (ii)Linked list.
+18. Write a program that implements Queue (its operations) using (i)Arrays (ii)Linked list.
+19. Write a program that to perform the following searching operations for a Key value in a given list of
+integers: a) Linear search b) Binary search
+20. Write a program that implements the following sorting 1. Bubble sort 2. Selection sort .
+21. Write a program that implements the Quick sort.
+22. Write a program that implements the following 1. Insertion sort 2. Quick Sort
+23. Write a program that implements the following Heap sort.
+24. Write a program that implements the following Merge sort .
+25. Write a program that implements the following Radix sort.
+26. Write a program to perform the following operations: a) Insert an element into a binary search tree. b)
+Delete an element from a binary search tree. c) Search for a key element in a binary search tree.
+27. Write a program using functions for binary tree traversals Pre-order, In-order and Post-order using both
+Recursive and Non-recursive approach.
+28. Write a Program in C for implementation of Insertion and Deletion in BST Using Linked List.
+29. Write a program to perform the following operations: a) Insert an element into an AVL tree. b) Delete an
+element from an AVL tree. c) Search for a key element in an AVL tree.
+30. Write a program to perform the following operations: a) Insert an element into an AVL tree. b) Delete an
+element from an AVL tree. c) Search for a key element in an AVL tree
+31. Write a program in C to implement depth first search.
+32. Write a program in C to implement Breadth first search
