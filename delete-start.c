@@ -1,15 +1,13 @@
-//insert at a specific location in linked list 
+//delete an element from the begining of the linked list 
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define node structure
 struct Node {
     int data;
     struct Node* next;
 };
 
-// Function to create a new node
 struct Node* createNode(int value) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
@@ -17,7 +15,6 @@ struct Node* createNode(int value) {
     return newNode;
 }
 
-// Function to create a linked list with user input
 struct Node* createList(int n) {
     struct Node* head = NULL, *temp = NULL;
     int value;
@@ -38,7 +35,6 @@ struct Node* createList(int n) {
     return head;
 }
 
-// Function to display linked list
 void displayList(struct Node* head) {
     struct Node* temp = head;
     printf("Linked List: ");
@@ -49,40 +45,24 @@ void displayList(struct Node* head) {
     printf("NULL\n");
 }
 
-// Insert at specific location (1-based index)
-// Example: position=1 means insert at beginning
-struct Node* insertAtPosition(struct Node* head, int value, int position) {
-    struct Node* newNode = createNode(value);
-
-    // Case 1: insert at beginning
-    if (position == 1) {
-        newNode->next = head;
-        head = newNode;
+// Delete from beginning
+struct Node* deleteFromBeginning(struct Node* head) {
+    if (head == NULL) {
+        printf("List is empty, cannot delete.\n");
         return head;
     }
 
     struct Node* temp = head;
-    for (int i = 1; i < position - 1 && temp != NULL; i++) {
-        temp = temp->next;
-    }
-
-    // If position is beyond list length
-    if (temp == NULL) {
-        printf("Invalid position! Insertion failed.\n");
-        free(newNode);
-        return head;
-    }
-
-    // Insert in middle or end
-    newNode->next = temp->next;
-    temp->next = newNode;
+    head = head->next;   // move head to next node
+    printf("Deleted: %d\n", temp->data);
+    free(temp);          // free old head
 
     return head;
 }
 
 int main() {
     struct Node* head = NULL;
-    int n, value, pos;
+    int n;
 
     printf("Enter number of nodes: ");
     scanf("%d", &n);
@@ -91,14 +71,9 @@ int main() {
     printf("\nOriginal ");
     displayList(head);
 
-    printf("\nEnter value to insert: ");
-    scanf("%d", &value);
-    printf("Enter position to insert at (1-based index): ");
-    scanf("%d", &pos);
+    head = deleteFromBeginning(head);
 
-    head = insertAtPosition(head, value, pos);
-
-    printf("\nAfter Insertion ");
+    printf("\nAfter Deletion ");
     displayList(head);
 
     return 0;
