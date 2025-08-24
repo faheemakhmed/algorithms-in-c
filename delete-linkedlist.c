@@ -1,5 +1,3 @@
-//Write a program that uses functions to perform the following operations on singly linked List for Deletion
-//of elements at the beginning/end/anywhere.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,23 +7,25 @@ struct Node {
     struct Node* next;
 };
 
-struct Node* head = NULL;
-
-// Function to create a new node (helper for building the list initially)
+// Function to create a new node
 struct Node* createNode(int value) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
     newNode->data = value;
     newNode->next = NULL;
     return newNode;
 }
 
-// Insert at end (helper to build list before deletions)
-void insertAtEnd(int value) {
+// Insert at end
+void insertAtEnd(struct Node** head, int value) {
     struct Node* newNode = createNode(value);
-    if (head == NULL) {
-        head = newNode;
+    if (*head == NULL) {
+        *head = newNode;
     } else {
-        struct Node* temp = head;
+        struct Node* temp = *head;
         while (temp->next != NULL)
             temp = temp->next;
         temp->next = newNode;
@@ -34,32 +34,32 @@ void insertAtEnd(int value) {
 }
 
 // Delete at beginning
-void deleteAtBeginning() {
-    if (head == NULL) {
+void deleteAtBeginning(struct Node** head) {
+    if (*head == NULL) {
         printf("List is empty. Cannot delete.\n");
         return;
     }
-    struct Node* temp = head;
-    head = head->next;
+    struct Node* temp = *head;
+    *head = (*head)->next;
     printf("Deleted %d from the beginning.\n", temp->data);
     free(temp);
 }
 
 // Delete at end
-void deleteAtEnd() {
-    if (head == NULL) {
+void deleteAtEnd(struct Node** head) {
+    if (*head == NULL) {
         printf("List is empty. Cannot delete.\n");
         return;
     }
 
-    if (head->next == NULL) {
-        printf("Deleted %d from the end.\n", head->data);
-        free(head);
-        head = NULL;
+    if ((*head)->next == NULL) {
+        printf("Deleted %d from the end.\n", (*head)->data);
+        free(*head);
+        *head = NULL;
         return;
     }
 
-    struct Node* temp = head;
+    struct Node* temp = *head;
     while (temp->next->next != NULL)
         temp = temp->next;
 
@@ -69,8 +69,8 @@ void deleteAtEnd() {
 }
 
 // Delete at specific position (1-based index)
-void deleteAtPosition(int position) {
-    if (head == NULL) {
+void deleteAtPosition(struct Node** head, int position) {
+    if (*head == NULL) {
         printf("List is empty. Cannot delete.\n");
         return;
     }
@@ -81,11 +81,11 @@ void deleteAtPosition(int position) {
     }
 
     if (position == 1) {
-        deleteAtBeginning();
+        deleteAtBeginning(head);
         return;
     }
 
-    struct Node* temp = head;
+    struct Node* temp = *head;
     for (int i = 1; temp != NULL && i < position - 1; i++) {
         temp = temp->next;
     }
@@ -101,14 +101,14 @@ void deleteAtPosition(int position) {
     free(nodeToDelete);
 }
 
-// Function to display the linked list
-void displayList() {
-    struct Node* temp = head;
-    if (temp == NULL) {
+// Display the linked list
+void displayList(struct Node* head) {
+    if (head == NULL) {
         printf("List is empty.\n");
         return;
     }
     printf("Linked List: ");
+    struct Node* temp = head;
     while (temp != NULL) {
         printf("%d -> ", temp->data);
         temp = temp->next;
@@ -116,43 +116,58 @@ void displayList() {
     printf("NULL\n");
 }
 
+// Free the entire list before exit
+void freeList(struct Node** head) {
+    struct Node* temp;
+    while (*head != NULL) {
+        temp = *head;
+        *head = (*head)->next;
+        free(temp);
+    }
+}
+
 // Main function with menu
 int main() {
+    struct Node* head = NULL;
     int choice, value, position;
 
     while (1) {
-        printf("\n--- Singly Linked List Deletion Menu ---\n");
-        printf("1. Insert at End to create linkedlist\n2. Delete at Beginning\n3. Delete at End\n4. Delete at Position\n5. Display\n6. Exit\n");
+        printf("\n--- Singly Linked List Menu ---\n");
+        printf("1. Insert at End\n2. Delete at Beginning\n3. Delete at End\n4. Delete at Position\n5. Display\n6. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1) {
+            printf("Invalid input! Exiting.\n");
+            break;
+        }
 
         switch (choice) {
             case 1:
                 printf("Enter value to insert: ");
                 scanf("%d", &value);
-                insertAtEnd(value);
+                insertAtEnd(&head, value);
                 break;
 
             case 2:
-                deleteAtBeginning();
+                deleteAtBeginning(&head);
                 break;
 
             case 3:
-                deleteAtEnd();
+                deleteAtEnd(&head);
                 break;
 
             case 4:
                 printf("Enter position to delete: ");
                 scanf("%d", &position);
-                deleteAtPosition(position);
+                deleteAtPosition(&head, position);
                 break;
 
             case 5:
-                displayList();
+                displayList(head);
                 break;
 
             case 6:
-                printf("Exiting program.\n");
+                printf("Freeing memory and exiting program.\n");
+                freeList(&head);
                 return 0;
 
             default:
@@ -160,5 +175,6 @@ int main() {
         }
     }
 
+    freeList(&head); // safety
     return 0;
 }
